@@ -80,7 +80,7 @@ cat temp_wordlist.txt | ./anew | sed '/^$/d' | sed 's/\*\.//g' | grep -v " " | g
 rm temp_wordlist.txt
 ############ Running Crt.sh on all domain iterations  ##############
 
-for i in $(cat wordlist.txt); do curl -s "https://crt.sh/?q="$i"."$org"&output=json" | jq -r '.[].name_value' | sed '/^$/d' | sed 's/\*\.//g' | grep -v " " | grep -v "@" | grep -v "*" | sort -u; done >> all.txt
+for i in $(cat wordlist.txt); do curl -s "https://crt.sh/?q="$i"."$org"&output=json" | jq -r '.[].name_value' | sed '/^$/d' | sed 's/\*\.//g' | grep -v " " | grep -v "@" | grep -v "*" | sort -u; done >> all.txt &> /dev/null
 
 ############ Housekeeping Tasks ##############
 
@@ -88,27 +88,3 @@ cat all.txt | ./anew >> $(date +"%FT%T").txt
 rm all.txt
 
 echo -e "Result is saved in the  \e[91m$(ls 2021-*.txt) file."
-
-#echo -e "\e[93m Preparing the the vulnerability scanning engine... \e[0m"
-#if [ -d "nuclei-templates" ]
-#then
- #   rm -r nuclei-templates
- #   git clone https://github.com/projectdiscovery/nuclei-templates.git &> /dev/null
-#else
-#    git clone https://github.com/projectdiscovery/nuclei-templates.git &> /dev/null
-#fi
-
-if test -e live_urls.txt; then
-  rm live_urls.txt
-fi
-
-echo -e "\e[93m Running web application vulnerability scanner... \e[0m"
-cat 2021-*.txt | ./httprobe >> live_urls.txt; cat live_urls.txt | anew | ./nuclei -t nuclei-templates/ -silent -severity critical,high,medium,low -o Vulns.txt
-rm live_urls.txt
-
-if test -e Vulns.txt; then
-        echo -e "Result is saved in the  \e[91m$(ls Vulns.txt) file."
-else
-        echo -e "\e[93m Sorry!! :( No High or Medium vulnerabilities found. \e[0m"
-fi
-rm wordlist.txt
