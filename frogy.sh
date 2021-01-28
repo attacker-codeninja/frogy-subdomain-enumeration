@@ -26,10 +26,10 @@ chmod +x findomain-linux
 chmod +x httprobe
 chmod +x subfinder
 
-echo -e "\e[94m Enter the organisation name: \e[0m"
+echo -e "\e[94m Enter the organisation name (without space): \e[0m"
 read org
 
-echo -e "\e[94m Enter the root domain name: \e[0m"
+echo -e "\e[94m Enter the root domain name (eg-frogy.com): \e[0m"
 read domain_name
 
 echo -e "\e[92m Hold on! some house keeping tasks being done... \e[0m"
@@ -92,4 +92,4 @@ for i in $(cat wordlist.txt); do curl -s "https://crt.sh/?q="$i"."$org"&output=j
 cat all.txt | ./anew >> $(date +"%FT%T").txt
 rm all.txt
 
-echo -e "Result is saved in the  \e[91m$(ls 2021-*.txt) file."
+echo -e "Result is saved in the  \e[91m$(ls 2021-*.txt) file.\e[0m"
