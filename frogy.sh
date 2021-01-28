@@ -58,7 +58,7 @@ curl -s "https://crt.sh/?q="$org"%&output=json" | jq -r '.[].name_value' | sed '
 curl -s "https://crt.sh/?q=%"$org".%&output=json" | jq -r '.[].name_value' | sed '/^$/d' | sed 's/\*\.//g' | grep -v " " | grep -v "@" | grep -v "*" | sort -u >> all.txt
 curl -s "https://crt.sh/?q=%"$org"%&output=json" | jq -r '.[].name_value' | sed '/^$/d' | sed 's/\*\.//g' | grep -v " " | grep -v "@" | grep -v "*" | sort -u  >> all.txt
 
-python3.8 sublister/sublist3r.py -d $domain_name -o sublister_output.txt &> /dev/null
+python3 sublister/sublist3r.py -d $domain_name -o sublister_output.txt &> /dev/null
 cat sublister_output.txt >> all.txt
 rm sublister_output.txt
 
