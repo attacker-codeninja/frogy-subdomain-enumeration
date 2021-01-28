@@ -93,3 +93,4 @@ cat all.txt | ./anew >> $(date +"%FT%T").txt
 rm all.txt
 
 echo -e "Result is saved in the  \e[91m$(ls 2021-*.txt) file.\e[0m"
+rm wordlist.txt
