@@ -20,6 +20,11 @@ echo -e "
 "
 
 ########### Taking User Input  ############
+chmod +x anew
+chmod +x- assetfinder
+chmod +x findomain-linux
+chmod +x httprobe
+chmod +x subfinder
 
 echo -e "\e[94m Enter the organisation name: \e[0m"
 read org
